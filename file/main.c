@@ -15,7 +15,8 @@ void readdir_print(const char* path){
 }
 
 
-main()
+int main()
 {
     readdir_print("/proc");
+    return 0;
 }
