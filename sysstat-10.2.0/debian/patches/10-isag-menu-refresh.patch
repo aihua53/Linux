@@ -1,0 +1,46 @@
+From: Robert Luberda <robert@debian.org>
+Date: Fri, 10 May 2013 10:26:14 +0200
+Subject: 10-isag-menu-refresh
+
+Add Refresh button to file menu to make it possible to re-read contents
+of /var/log/sysstat directory in case isag is running over midnight, and
+new file is created (LP: #924197).
+
+Please note that (depending on /etc/sysstat/sysstat settings) the new file
+created just after midnight can be replaced with a symbolic link, so it might
+be necessary to use the Refresh button again in such cases.
+---
+ contrib/isag/isag.in | 13 +++++++++++--
+ 1 file changed, 11 insertions(+), 2 deletions(-)
+
+diff --git a/contrib/isag/isag.in b/contrib/isag/isag.in
+index f7300ff..3b76aa1 100644
+--- a/contrib/isag/isag.in
++++ b/contrib/isag/isag.in
+@@ -510,6 +510,14 @@ set sar_elim(v) "dentunusd"
+ set sar_elim(w) "cswch"
+ set sar_elim(W) "pswpin"
+ 
++proc refresh_file_menu {} {
++	set x [winfo x .file.menu.m]
++	set y [winfo y .file.menu.m]
++	destroy .file.menu.m
++	fill_file_menu
++	.file.menu.m post $x $y
++}
++
+ # Functions which are responsible for data source selection and processing
+ # funcs are referred from GUI
+ proc fill_file_menu {} {
+@@ -583,8 +591,9 @@ proc fill_file_menu {} {
+ 			}			
+ 		}
+ 	}
+-}	
+-	
++	# Add Refresh button to fix https://bugs.launchpad.net/ubuntu/+source/sysstat/+bug/924197
++	.file.menu.m add command -label "Refresh" -command "refresh_file_menu"
++}
+ 
+ proc set_file {name} {
+ 	global sar_data_path sag_if_archive sag_if_archive_uncompressed last_graph fngr_tmpdir
