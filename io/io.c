@@ -7,23 +7,25 @@
 #define L 10*1024
 int main()
 {
-        int fd,size;        //fd为文件描述符，size为读到的数据大小
-        // char s[]="linux programmer!\n ",buffer[80];
+        /****** write *******/
+        int fd,size;
         char s[L];
         memset(s,'c',sizeof(s));
         s[L-1] = '\n';
-        // fd=open("/data/io.txt",O_WRONLY|O_CREAT|O_APPEND,0666); //打开文件，如没有就创建文件
+        fd=open("/data/io.txt",O_WRONLY|O_CREAT|O_APPEND,0666);
         fd=open("/data/io.txt",O_DIRECT|O_WRONLY|O_CREAT|O_APPEND,0666);
         while(1){
-                // fd=open("/data/io.txt",O_DIRECT|O_WRONLY|O_CREAT|O_APPEND,0666);
-                // fd=open("/data/io.txt",O_WRONLY|O_CREAT|O_APPEND,0666);
                 write(fd,s,sizeof(s));  
                 usleep(2000);
-                // close(fd);
         }
-        close(fd);                                      //关闭文件
+        close(fd);
 
- 
- 
- 
+        /***** read *****/
+        // int fd_r;
+        // char buf[4096];
+        // int byte_count;
+        // fd_r = open("/data/test.txt",O_RDONLY);
+        // byte_count = read(fd_r,buf,sizeof(buf));
+        // close(fd_r);     
+
 }
