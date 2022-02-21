@@ -1,0 +1,8 @@
+memtester: memtester.o
+	gcc -o memtester memtester.o
+memtester.o: memtester.c
+	gcc -o memtester.o memtester.c
+
+.PHONY:clean
+clean:
+    rm -rf *.o
