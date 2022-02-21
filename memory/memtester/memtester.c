@@ -248,7 +248,15 @@ int main(int argc, char **argv) {
         aligned = buf;
         done_mem = 1;
     }
+#if 0
+    for(loop=1; ((!loops) || loop <= loops); loop++) {
+        printf("Loop %lu\n", loop);
+        buf = (void volatile *) malloc(wantbytes);
+        memset(buf,0,wantbytes);
+        sleep(2);
+    }
 
+#else
     while (!done_mem) {
         while (!buf && wantbytes) {
             buf = (void volatile *) malloc(wantbytes);
@@ -317,6 +325,7 @@ int main(int argc, char **argv) {
     bufa = (ulv *) aligned;
     bufb = (ulv *) ((size_t) aligned + halflen);
 
+
     for(loop=1; ((!loops) || loop <= loops); loop++) {
         printf("Loop %lu", loop);
         if (loops) {
@@ -343,6 +352,7 @@ int main(int argc, char **argv) {
         printf("\n");
         fflush(stdout);
     }
+#endif
     if (do_mlock) munlock((void *) aligned, bufsize);
     printf("Done.\n");
     fflush(stdout);
