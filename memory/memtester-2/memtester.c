@@ -5,7 +5,7 @@
  */
 
 #include <stdio.h>
-// #include <stdlib.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
 
@@ -16,7 +16,10 @@ typedef unsigned long ul;
 typedef unsigned long long ull;
 
 static void usage(char* p) {
-    printf("\nUsage: %s <mem>[B|K|M|G] [loops] [interval]\n", p);
+    printf("version:");
+    printf(__version__);
+    printf("\nUsage: %s <mem>[B|K|M|G] [loops] [interval(ms)]\n", p);
+    printf("example: memtester 10M 2 1\n");
     exit(EXIT_FAIL_NONSTARTER);
 }
 
@@ -31,8 +34,7 @@ int memtester_pagesize(void) {
 }
 
 int main(int argc, char** argv){
-    size_t pagesize, wantraw, wantmb, wantbytes, wantbytes_orig, bufsize,
-         halflen, count;
+    size_t pagesize, wantraw, wantmb, wantbytes, wantbytes_orig;
     char *memsuffix, *suffix;
     int memshift, loops = 0, interval = 2;
     void *buf = NULL;
@@ -53,7 +55,6 @@ int main(int argc, char** argv){
         usage(argv[0]); /* doesn't return */
     }
 
-    // printf("optind=%d\n",optind);
     errno = 0;
     wantraw = (size_t) strtoul(argv[optind], &memsuffix, 0);
     if (errno != 0) {
@@ -95,7 +96,7 @@ int main(int argc, char** argv){
         exit(EXIT_FAIL_NONSTARTER);
     }
     if (wantbytes < pagesize) {
-        fprintf(stderr, "bytes %ld < pagesize %ld -- memory argument too large?\n",
+        fprintf(stderr, "bytes %ld < pagesize %ld -- memory argument too small?\n",
                 wantbytes, pagesize);
         exit(EXIT_FAIL_NONSTARTER);
     }
@@ -134,7 +135,7 @@ int main(int argc, char** argv){
 
     for(int loop=1; ((!loops) || loop <= loops); loop++) {
         printf("Loop %d\n", loop);
-        buf = (void volatile *) malloc(wantbytes);
+        buf = (void *) malloc(wantbytes);
         memset(buf,0,wantbytes);
         sleep(interval);   
     }
