@@ -16,7 +16,8 @@ typedef unsigned long ul;
 typedef unsigned long long ull;
 
 static void usage(char* p) {
-    printf("\nUsage: %s <mem>[B|K|M|G] [loops] [interval]\n", p);
+    printf("\nUsage: %s <mem>[B|K|M|G] [loops] [interval(ms)]\n", p);
+    printf("example: memtester 10M 3 1\n");
     exit(EXIT_FAIL_NONSTARTER);
 }
 
@@ -31,8 +32,7 @@ int memtester_pagesize(void) {
 }
 
 int main(int argc, char** argv){
-    size_t pagesize, wantraw, wantmb, wantbytes, wantbytes_orig, bufsize,
-         halflen, count;
+    size_t pagesize, wantraw, wantmb, wantbytes, wantbytes_orig;
     char *memsuffix, *suffix;
     int memshift, loops = 0, interval = 2;
     void *buf = NULL;
@@ -97,7 +97,7 @@ int main(int argc, char** argv){
         exit(EXIT_FAIL_NONSTARTER);
     }
     if (wantbytes < pagesize) {
-        fprintf(stderr, "bytes %ld < pagesize %ld -- memory argument too large?\n",
+        fprintf(stderr, "bytes %ld < pagesize %ld -- memory argument too small?\n",
                 wantbytes, pagesize);
         exit(EXIT_FAIL_NONSTARTER);
     }
