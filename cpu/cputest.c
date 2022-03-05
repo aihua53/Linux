@@ -16,8 +16,8 @@
 static void usage(char *p){
     printf("version:");
     printf(__version__);
-    printf("\nUsage: %s [interval(us)]\n", p);
-    printf("example: cputest 10\n");
+    printf("\nUsage: %s [interval(us)] [processCount]\n", p);
+    printf("example: cputest 10 2\n");
     exit(EXIT_FAIL_NONSTARTER);
 }
 
