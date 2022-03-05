@@ -3,23 +3,21 @@
  * memtester version 1
  * 
  */
-
+// #include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
 #include <errno.h>
 
-#define __version__ "1.0"
+#define __version__ "version: 1.0"
 #define EXIT_FAIL_NONSTARTER    0x01
 
 typedef unsigned long ul;
 typedef unsigned long long ull;
 
 static void usage(char* p) {
-    printf("version:");
-    printf(__version__);
     printf("\nUsage: %s <mem>[B|K|M|G] [loops] [interval(ms)]\n", p);
-    printf("example: memtester 10M 2 1\n");
+    printf("example: memtester 10M 3 1\n");
     exit(EXIT_FAIL_NONSTARTER);
 }
 
@@ -41,6 +39,8 @@ int main(int argc, char** argv){
     size_t maxbytes = -1; /* addressable memory, in bytes */
     size_t maxmb = (maxbytes >> 20) + 1; /* addressable memory, in MB */
 
+    printf(__version__);
+    printf("\n");
 
     pagesize = memtester_pagesize();
 
@@ -55,6 +55,7 @@ int main(int argc, char** argv){
         usage(argv[0]); /* doesn't return */
     }
 
+    // printf("optind=%d\n",optind);
     errno = 0;
     wantraw = (size_t) strtoul(argv[optind], &memsuffix, 0);
     if (errno != 0) {
@@ -131,17 +132,18 @@ int main(int argc, char** argv){
             usage(argv[0]); /* doesn't return */
         }
     }
-    printf("interval %d\n", interval);
+    printf("interval: %dms\n", interval);
 
     for(int loop=1; ((!loops) || loop <= loops); loop++) {
         printf("Loop %d\n", loop);
-        buf = (void *) malloc(wantbytes);
+        buf = malloc(wantbytes);
         memset(buf,0,wantbytes);
         sleep(interval);   
     }
-    printf("Done.\n");
+    printf("Done. Press any key to exit.\n");
 
     while(1){
+        getchar();
         getchar();
         break;     
     }
