@@ -1,0 +1,8 @@
+cputest: cputest.o
+	gcc -o cputest cputest.o
+cputest.o: cputest.c
+	gcc -o cputest.o cputest.c
+
+.PHONY:clean
+clean:
+    rm -rf *.o
