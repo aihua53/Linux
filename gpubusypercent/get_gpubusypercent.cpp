@@ -7,6 +7,8 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <iostream>
+#include <sched.h>
+
 
 
 #define STDOUT_FILENO 1
@@ -17,6 +19,14 @@ using namespace std;
 
 int main (int argc, char *argv[]) {
     // open file
+    cpu_set_t mask;
+    CPU_ZERO(&mask);
+    CPU_SET(0,&mask);
+    CPU_SET(2,&mask);
+    if (sched_setaffinity(gettid(), sizeof(mask), &mask) == -1) {
+        dprintf(fd, "sched_setaffinity error!\n");
+    }
+
     FILE *f1 = fopen("/sys/class/kgsl/kgsl-3d0/gpu_busy_percentage", "r");
     if (f1 == NULL) return -1;
     // int fd1 = fileno(f1);
