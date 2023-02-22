@@ -1,0 +1,21 @@
+cc_binary {
+    name: "iotest",
+
+    srcs: [
+        "io_test.cpp",
+    ],
+    
+    cflags: [
+        "-Wno-unused-parameter",
+        "-Werror",
+    ],
+
+     cppflags: [
+           "-Wall",
+           "-Werror",
+           "-fexceptions",
+     ],
+
+    compile_multilib: "64",
+}
+
