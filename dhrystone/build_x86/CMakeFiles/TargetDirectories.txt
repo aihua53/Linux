@@ -1,0 +1,3 @@
+/home/hhsw/桌面/dhrystone-new/build_x86/CMakeFiles/edit_cache.dir
+/home/hhsw/桌面/dhrystone-new/build_x86/CMakeFiles/rebuild_cache.dir
+/home/hhsw/桌面/dhrystone-new/build_x86/CMakeFiles/dhrystone.dir

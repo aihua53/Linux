@@ -1,0 +1,1 @@
+/usr/bin/cc  -w -fno-inline  -rdynamic CMakeFiles/dhrystone.dir/dhry_1.c.o CMakeFiles/dhrystone.dir/dhry_2.c.o  -o dhrystone 

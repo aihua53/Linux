@@ -1,0 +1,28 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/hhsw/桌面/dhrystone-new/dhry.h
+
+/home/hhsw/桌面/dhrystone-new/dhry_1.c
+stdio.h
+-
+stdlib.h
+-
+string.h
+-
+sys/time.h
+-
+dhry.h
+/home/hhsw/桌面/dhrystone-new/dhry.h
+
+/home/hhsw/桌面/dhrystone-new/dhry_2.c
+string.h
+-
+dhry.h
+/home/hhsw/桌面/dhrystone-new/dhry.h
+
